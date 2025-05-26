@@ -1,11 +1,12 @@
-<div>
-    {{#if user}}
-    <h5>Tu perfil (sin datos sensibles)</h5>
-    <p>{{user.name}}</p>
-    <p>{{user.email}}</p>
-    <p>{{user.age}}</p>
-    {{else}}
-    <h1>Inicia sesión para ver tu perfil</h1>
-    <a href="/users/login">Ingresar</a>
-    {{/if}}
+<div class="card" style="width: 18rem;">
+   <div class="card-body">
+        {{#if user}}
+        <h5 class="card-title">Perfil del Usuario {{user.name}}</h5>
+        <p>Email: {{user.email}}</p>
+        <p>Edad: {{user.age}}</p>
+        {{else}}
+        <h1>Inicia sesión para ver tu perfil</h1>
+        <a href="/users/login">Ingresar</a>
+        {{/if}}
+    </div>
 </div>
