@@ -1,6 +1,6 @@
 <div class="card" style="width: 30rem;">
     <h5>Registro</h5>
-    <form id="registerForm">
+    <form id="registerForm" method="POST" action="/register" >
 
         <label class="form-label">Nombre</label>
         <input name="first_name">
@@ -19,6 +19,6 @@
 
         <input type="submit" class="btn btn-secondary">
     </form>
-    <p>¿Ya tienes una cuenta? <a href="/users/login">Ingresa aquí</a></p>
+    <p>¿Ya tienes una cuenta? <a href="/login">Ingresa aquí</a></p>
 </div>
 <script src="/js/register.js"></script>

@@ -23,33 +23,32 @@ export const isValidPassword = async (user, password) => {
 
 
 
-
-export const PRIVATE_KEY = "CoderhouseBackendCourseSecretKeyJWT";
+//export const PRIVATE_KEY = "algoSuperSecreto123";
 
 
 export const generateJWToken = (user) => {
-    return jwt.sign({ user }, PRIVATE_KEY, { expiresIn: '24h' });
-}
+    return jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: "1h" });
+};
 
 export const passportCall = (strategy) => {
     return async (req, res, next) => {
-        console.log("Entrando a llamar strategy: ", strategy);
-        passport.authenticate(strategy, function (err, user, info) {
-            if (err) return next(err);
+        console.log(`🚀 PassportCall - Estrategia: ${strategy}`);
 
+        passport.authenticate(strategy, function (err, user, info) {
+            console.log("✅ PassportCall - Usuario recibido antes de asignar `req.user`:", JSON.stringify(user, null, 2));
+
+            if (err) return next(err);
             if (!user) {
-                return res.status(401).send({ error: info.messages ? info.messages : info.toString() });
+                console.error("❌ Usuario no autenticado en Passport.");
+                return res.status(401).send({ error: "No autorizado: Usuario no encontrado." });
             }
 
-            console.log("Usuario obtenido del strategy: ");
-            console.log(user);
-
-            req.user = user
-            next()
+            req.user = user;
+            console.log("🎯 PassportCall - `req.user` asignado correctamente:", req.user);
+            next();
         })(req, res, next);
-    }
-}
-
+    };
+};
 
 export const authorization = (role) => {
     return async (req, res, next) => {
